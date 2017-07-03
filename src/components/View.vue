@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="hero notification is-dark is-bold  is-fullheight">
+    <section class="hero notification is-primary is-bold  is-fullheight">
 
       <div class="hero-head">
         <h2 class="title">My Notes</h2>

@@ -6,7 +6,7 @@
     </a>
   </div>
   <div class="nav-center">
-<a class="nav-item">
+<a href="https://github.com/nine-tails9/Notix" class="nav-item">
   <span class="icon">
     <i class="fa fa-github"></i>
   </span>
