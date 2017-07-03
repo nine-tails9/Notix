@@ -1,37 +1,5 @@
 <template>
-  <div>
-    <nav class="nav has-shadow">
-      <div class="nav-left">
-        <a class="nav-item">
-          <i class="fa fa-sticky-note fa-fw fa-5x"></i> &nbsp;<h2 class="title is-4">Notix</h2>
-        </a>
-      </div>
-      <div class="nav-center">
-    <a class="nav-item">
-      <span class="icon">
-        <i class="fa fa-github"></i>
-      </span>
-    </a>
-    <a class="nav-item">
-      <span class="icon">
-        <i class="fa fa-twitter"></i>
-      </span>
-    </a>
-  </div>
-    <div class="nav-right nav-menu">
-      <a href="#" class="nav-item is-tab">Create</a>
-      <a href="#" class="nav-item is-tab">View</a>
-      <a href="#" class="nav-item is-tab">About Us!</a>
-      <div class="nav-item">
-        <a href="#" class="button is-outlined is-info"><div class="icon"><i class="fa fa-facebook"></i></div>
-          &nbsp;&nbsp;Share on Facebook
-        </a>
-
-      </div>
-    </div>
-
-    </nav>
-    <!-- End of Nav Bar -->
+  <div >
     <div class="tile is-ancestor notification is-dark is-medium">
 
         <h3 class="title has-text-centered is-dark tile is-parent is-bold">Add A Note</h3>
@@ -61,29 +29,42 @@
           </div>
           <div class="field">
             <p class="control">
-              <a class="button is-light is-pulled-left">Save</a>
+              <a class="button is-light is-pulled-left" v-on:click="post">Save</a>
+              <p class="subtitle is-small is-pulled-right" v-if="submitted">Post Saved Successfully!</p>
             </p>
-
           </div>
         </form>
-
         </div>
-
-
   </div>
-
 
 </div>
 </template>
 
 <script>
+import { bus } from '../main';
 export default {
+  props: {
+    vis: {
+      type: String,
+      required: true
+    }
+  },
   data () {
     return {
-      Note : {author : '',title: '', content: ''}
+      Note : {author : '',title: '', content: ''},
+      submitted: false
 
     }
-  }
+  },
+  methods: {
+    post: function(){
+      this.$http.post('https://takenote-1435f.firebaseio.com/notes.json',this.Note).then(function(data){
+        console.log(data);
+        this.submitted = true;
+      });
+    }
+  },
+
 }
 </script>
 

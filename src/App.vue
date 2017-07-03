@@ -1,19 +1,28 @@
 <template>
   <div id="app">
-    <note-view></note-view>
+
+    <!-- Navigation Endss -->
+    <tm-nav></tm-nav>
+    <router-view v-bind:vis="bod"></router-view>
 
   </div>
 </template>
 
 <script>
-import NoteV from './components/Create.vue';
+import NoteC from './components/Create.vue';
+import NoteV from './components/View.vue';
+import Nav from './components/Nav.vue';
 export default {
+
   components: {
+    'tm-nav' : Nav,
+    'note-create' : NoteC,
     'note-view' : NoteV
   },
   name: 'app',
   data () {
     return {
+      bod : false
     }
   }
 }
