@@ -45,7 +45,7 @@ import { bus } from '../main';
 export default {
   props: {
     vis: {
-      type: String,
+      type: Boolean,
       required: true
     }
   },
@@ -59,11 +59,18 @@ export default {
   methods: {
     post: function(){
       this.$http.post('https://takenote-1435f.firebaseio.com/notes.json',this.Note).then(function(data){
-        console.log(data);
+        //console.log(data);
         this.submitted = true;
       });
     }
   },
+  watch: {
+    vis: function() {
+      bus.$on('page',(data)=>{
+        this.vis=data;
+      });
+    }
+  }
 
 }
 </script>

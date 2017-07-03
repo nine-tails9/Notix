@@ -18,8 +18,8 @@
 </a>
 </div>
 <div class="nav-right nav-menu">
-  <a href="#" class="nav-item is-tab" v-on:click="change">Create</a>
-  <a href="#" class="nav-item is-tab" v-on:click="change">View</a>
+  <a href="create" class="nav-item is-tab" >Create</a>
+  <a href="view" class="nav-item is-tab" v-on:click="change">View</a>
   <a href="#" class="nav-item is-tab">About Us!</a>
   <div class="nav-item">
     <a href="#" class="button is-outlined is-info"><div class="icon"><i class="fa fa-facebook"></i></div>
@@ -36,12 +36,13 @@ import { bus } from '../main';
 export default{
   props: {
     vis: {
-      type: String,
+      type: Boolean,
       required: true
     }
   },
   methods:{
     change: function(){
+      console.log("clicked");
       this.vis!=this.vis;
       bus.$emit('page',this.vis);
     }

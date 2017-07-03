@@ -2,7 +2,7 @@
   <div id="app">
 
     <!-- Navigation Endss -->
-    <tm-nav></tm-nav>
+    <tm-nav v-bind:vis="bod"></tm-nav>
     <router-view v-bind:vis="bod"></router-view>
 
   </div>
