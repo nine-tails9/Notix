@@ -1,6 +1,6 @@
 <template>
   <div >
-    <div class="tile is-ancestor notification is-dark is-medium">
+    <div class="tile is-ancestor is-fullheight notification is-danger">
 
         <h3 class="title has-text-centered is-dark tile is-parent is-bold">Add A Note</h3>
 
@@ -31,8 +31,12 @@
             <p class="control">
               <a class="button is-light is-pulled-left" v-on:click="post">Save</a>
               <a  v-if="submitted" class="button is-light is-pulled-right" v-on:click="clr">New Note</a>
+              <transition name="custom-classes-transition" enter-active-class="animated rubberBand" leave-active-class="animated bounceOutRight" >
               <p class="subtitle is-small has-text-centered" v-if="vals">Missing Fields Found!</p>
+              </transition>
+              <transition name="custom-classes-transition" enter-active-class="animated tada" leave-active-class="animated bounceOutRight">
               <p class="subtitle is-small has-text-centered" v-if="submitted">Post Saved Successfully!</p>
+              </transition>
             </p>
           </div>
         </form>
@@ -53,7 +57,7 @@ export default {
   },
   data () {
     return {
-      Note : {author : '',title: '', content: ''},
+      Note : {author : '',title: '', content: '',avl: true},
       submitted: false,
       vals: false
 
@@ -62,16 +66,22 @@ export default {
   methods: {
     post: function(){
       if(this.Note.author.length==0||this.Note.content.length==0||this.Note.title.length==0){
+        this.submitted= false;
+
         return this.vals=true;
       }
       this.vals=false;
+
       this.$http.post('https://takenote-1435f.firebaseio.com/notes.json',this.Note).then(function(data){
         //console.log(data);
+        this.Note = {author: '',title: '', content: '', avl: true};
+
         this.submitted = true;
+
       });
     },
     clr: function(){
-      this.Note ={};
+      this.Note = {author: '',title: '', content: '', avl: true};
       this.vals=false;
       this.submitted = false;
     }
@@ -109,4 +119,5 @@ h3{
 .clrr{
   margin-left: 50px;
 }
+
 </style>
