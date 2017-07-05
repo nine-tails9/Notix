@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="hero notification is-bold  is-fullheight">
+    <section class="hero notification is-dark is-bold  is-fullheight">
 
       <div class="hero-head">
         <h2 class="title">My Notes</h2>
@@ -17,7 +17,7 @@
 
 
         <div class="tile notification is-light is-bold is-5" v-for="note in res" v-if="note.avl">
-          <button  class="delete" v-on:click="del()"></button>
+          <button  class="delete" v-on:click="del(note.id)" v-bind:value="note.id"></button>
           <div class="content">
             <h3>{{note.title}}</h3>
             <p>{{note.content}}</p>
@@ -30,12 +30,12 @@
             <div class="modal-card">
 
               <header class="modal-card-head"><p class="modal-card-title">Are You Sure You Want to delete?</p>
-              <button class="delete " v-on:click="modal=false"></button>
+              <button class="delete" v-on:click="modal=false"></button>
 
               </header>
               <footer class="modal-card-foot">
 
-              <button class="button is-danger is-medium " v-on:click="rfr(note.id)" name="button">Yes</button>
+              <button class="button is-danger is-medium " v-on:click="rfr(note.id)" v-bind:value="note.id" name="button">Yes</button>
               <button class="button is-light is-medium" name="button" v-on:click="modal=false">No</button>
               </footer>
 
@@ -66,7 +66,8 @@ export default{
     return {
       res :[],
       Items: [],
-      modal: false
+      modal: false,
+	  curr: ''
     }
   },
   created(){
@@ -89,6 +90,8 @@ export default{
     del: function(id){
       //console.log(this.Items);
       //this.update();
+	  this.curr=id;
+	  
       this.modal = true;
     },
     update: function(){
@@ -98,13 +101,14 @@ export default{
 
     },
     rfr: function(id){
+		id=this.curr;
       for(var i=0;i<this.res.length;i++){
-        console.log(i);
         if(id == this.res[i].id){
           this.res[i].avl=false;
           break;
         }
       }
+		this.curr='';
 
       this.modal = false;
 
